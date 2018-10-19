@@ -1,0 +1,124 @@
+{% extends "base_in.html" %}
+
+{% block title %}
+	Paciente
+{% endblock %}
+
+{% load static %}
+
+{% block fondo %}
+	{% static 'media/fpaciente.jpg' %}
+{% endblock %}
+
+{% block body %}
+
+	<div class="row ">
+		
+		<div class="col-md-12" style="width:1130px;height:150px; margin:0 auto;border-radius:3px;position:static">
+			<img src="{% static '/media/logo.png' %}" alt="img" style="margin: auto;psoition:absolute ">
+			<br>
+		</div>
+		
+		<nav class="navbar navbar-dark bg-dark col-md-12">
+			<nav class="col-md-12" >
+  				<form class="form-inline">
+  					<div class="col-md-2">	
+  						<a href="{% url 'clinica:admin' %}" type="buttonCerrarSesion"style="position:static; display:inline-block; "><img src="{% static '/media/regresar.png' %}" alt="img" style="margin: auto;width:100%; align:right" ></a> 
+  					</div>
+  					<div class="col-md-5" >
+	    				<input class="form-control mr-sm-2" type="search" placeholder="Search" id="txtBuscar" aria-label="Search">
+  					</div>
+  					<div class="col-md-3" >
+	    				<label style="color:white; font-size:20px">PACIENTE </label>
+  					</div>
+  					<div class="col-md-2" >
+	    				<button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#exampleModal" >
+	    					<img src="{% static '/media/nuevo.png' %}" alt="img" style="margin: auto;width:25px; align:right" ><strong>  NUEVO</strong>
+	    				</button>
+	   					<a href="{% url 'security:log_out' %}" type="buttonCerrarSesion"style="position:absolute; float:right; display:inline-block"><img src="{% static '/media/cerrarsesion.png' %}" alt="img" style="margin: auto;width:40px; align:right" ></a>    					
+	    				
+  					</div>
+
+  				</form>
+			</nav>
+		</nav>
+
+		<table class="table table-striped " >
+			<thead class="table-dark">	
+				<tr>
+					<th>Identidad</th>
+					<th>Nombre Completo</th>
+					<th>Telefonos</th>
+					<th>Email</th>
+					<th>Acciones</th>
+				</tr>
+			</thead>
+
+			<tbody id="filas_pacientes" style="background:#F2F3F5;">
+				{% for p in paciente %}
+					<tr>
+						{# <td>{{forloop.counter}}</td> #}
+						<td><strong>{{p.identidad}}</strong></td>
+						<td>{{p.nombre}} {{p.apellido}}</td>
+						<td>{{p.celular}}<strong> / </strong>{{p.telcasa}}</td>
+						<td>{{p.correo}}</td>
+						<td>
+						<div class="btn-group" role="group" style="color:orange">
+		    				<button id="btnGroupDrop1" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
+								<img src="{% static '/media/accion.png' %}" alt="img" style="margin: auto;width:20px; align:right" >
+		    				</button>
+					    	<div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+					    		<a class="dropdown-item" href="{% url 'clinica:editarpaciente' p.id %}">
+					    			<img src="{% static '/media/editar.png' %}" alt="img" style="margin: auto;width:20px; align:right" ><strong>  Editar</strong>
+					    		</a>
+					      		<a class="dropdown-item" href="{% url 'clinica:historial' p.id %}">
+					      			<img src="{% static '/media/historial.png' %}" alt="img" style="margin: auto;width:20px; align:right" ><strong>  Historial</strong>
+					      		</a>
+					    	</div>
+					  	</div>
+					</td>
+
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>
+
+
+	<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	  <div class="modal-dialog" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h5 class="modal-title" id="exampleModalLabel"><img src="{% static '/media/nuevo.png' %}" alt="img" style="margin: auto;width:30px" > Nuevo Paciente</h5>
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	          <span aria-hidden="true">&times;</span>
+	        </button>
+	      </div>
+	      <div class="modal-body">
+	        <form  action="{%  url 'clinica:nuevopaciente' %}" method="post">
+	        	<div class="col-md-12">
+	        		
+					{% csrf_token %}
+					{{ form.as_p}}
+					<input type="submit" value="Guardar" class="btn btn-success">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+	        	</div>
+			</form>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+	
+	<script src="{% static 'js/jquery.min.js' %}"></script>
+	<script>
+		$(function(){
+				$('#txtBuscar').on('input', function(){
+					$.get('/clinica/paciente/buscar/', {valor: $(this).val().trim()}, function(data){
+						$('#filas_pacientes').html(data.listado);
+					}, 'json');
+				});
+		});
+	</script>
+
+	
+{% endblock %}

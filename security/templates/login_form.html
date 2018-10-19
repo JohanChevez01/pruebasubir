@@ -1,0 +1,43 @@
+{% extends "base_out.html" %}
+
+{% block title %}
+	Inicia Sesión
+{% endblock  %}
+
+{% load static %}
+
+{% block fondo %}
+	{% static 'media/imagen2.jpg' %}
+{% endblock  %}
+
+{% block content %}
+	<br>
+	<br>
+	<br>
+	<br>
+	<div style="background:rgb(10,20,15,0.6);width:400px; margin:0 auto;border-radius:10px">
+		<div style="width:400px; margin:0 auto; border:3px solid gray; border-radius:10px; padding:80px; box-shadow: 0 0 30px #4f9">
+			<div>
+		
+				<h1 style="text-align:center; color:white; font-family:'Ninja Naruto'"><strong>LOGIN</strong></h1>
+				<br>
+				<div style="text-align:center; color:#FBFCFC; font-family:'Ninja Naruto' ">
+						<form action="{% url 'security:log_in' %}" method="post" >
+						{% csrf_token %}
+
+						{{form.as_p}}
+
+						<input class="btn btn-success" type="submit" value="Iniciar Sesión" style="align:center">
+						</form>
+					
+				</div>
+			</div>
+			
+			
+		</div>
+
+	</div>
+
+
+	
+{% endblock %}

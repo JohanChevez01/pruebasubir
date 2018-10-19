@@ -1,0 +1,18 @@
+{% extends "base_in.html" %}
+
+{% block title %}
+	Edición de Paciente
+{% endblock %}
+
+
+{% block body %}
+		
+		<div class="col-md-5" style="margin:0 auto" id="form">
+			<form method="post" >
+					{% csrf_token %}
+					{{ form.as_p}}
+					<input type="submit" value="Save" class="btn btn-success">
+			</form>			
+		</div>
+	
+{% endblock  %}

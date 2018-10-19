@@ -1,0 +1,125 @@
+{% extends "base_in.html" %}
+
+{% block title %}
+	Bienvenido Administrador
+{% endblock %}
+
+{% load static %}
+
+{% block fondo %}
+	{% static 'media/imagen3.jpg' %}
+{% endblock fondo %}
+
+{% block body %}
+	
+	<div class="row">
+		<div class="col-md-12" style="margin: auto; display:block; ">
+			<img src="{% static '/media/logo.png' %}" alt="img" style="margin: auto; display:block; ">
+			<hr>
+		</div>
+
+
+		<div class="btn-group">
+
+			<button type="button" class="btn btn-secondary">
+				<a href="{% url 'clinica:admin' %}">
+					<img src="{% static '/media/home.png' %}" alt="img" style="margin: auto;width:45px" >
+				</a>
+			</button>
+			<button type="button" class="btn btn-secondary" >
+				<a href="{% url 'clinica:paciente' %}">
+					<img src="{% static '/media/paciente.png' %}" alt="img" style="margin: auto;width:45px" >
+				</a><a href="{% url 'clinica:paciente' %}" style="color:white"><strong>  PACIENTE</strong></a>
+			</button>
+			<button type="button" class="btn btn-secondary" >
+				<a href="{% url 'clinica:medico' %}">
+					<img src="{% static '/media/medico.png' %}" alt="img" style="margin: auto;width:45px" >
+				</a><a href="{% url 'clinica:medico' %}" style="color:white"><strong>  MEDICO</strong></a>
+			</button>
+			<button type="button" class="btn btn-secondary">
+				<a href="{% url 'clinica:empleado' %}">
+					<img src="{% static '/media/empleado.png' %}" alt="img" style="margin: auto;width:45px" >
+				</a><a href="{% url 'clinica:empleado' %}" style="color:white"><strong>  EMPLEADO</strong></a>
+			</button>
+
+			<button type="button" class="btn btn-secondary">
+				<a href="{% url 'clinica:diagnostico' %}">
+					<img src="{% static '/media/consultamedica.png' %}" alt="img" style="margin: auto;width:40px" >
+				</a><a href="{% url 'clinica:diagnostico' %}" style="color:white"><strong>  CONSULTAS MEDICAS</strong></a>
+			</button>
+
+		  	<div class="btn-group" role="group">
+		    	<button id="btnGroupDrop1" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+		      	<img src="{% static '/media/registro.png' %}" alt="img" style="margin: auto;width:50px" ><strong>  REGISTROS</strong>
+		    	</button>
+		    	<div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+		      		<a class="dropdown-item" href="{% url 'clinica:cargo' %}">Cargo</a>
+		        	<a class="dropdown-item" href="{% url 'clinica:especialidad' %}">Especialidad</a>
+		        	<a class="dropdown-item" href="{% url 'clinica:usuario' %}">Usuario</a>
+		        	<a class="dropdown-item" href="{% url 'clinica:local' %}">Local</a>
+		        	<a class="dropdown-item" href="{% url 'clinica:medicamento' %}">Medicamento</a>
+		        	<a class="dropdown-item" href="{% url 'clinica:profesion' %}">Profesión</a>
+		        	<a class="dropdown-item" href="{% url 'clinica:proveedor' %}">Proveedor</a>
+		   		</div>
+		  	</div>
+
+
+		  	<div class="btn-group" role="group">
+		    	<button id="btnGroupDrop2" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+		      	<img src="{% static '/media/pagos.png' %}" alt="img" style="margin: auto;width:50px" ><strong>  PAGOS</strong>
+		    	</button>
+		    	<div class="dropdown-menu" aria-labelledby="btnGroupDrop2">
+		      		<a class="dropdown-item" href="{% url 'clinica:listacobro' %}">Consulta</a>
+		        	<a class="dropdown-item" href="{% url 'clinica:venta' %}">Medicamento</a>
+		   		</div>
+		  	</div>
+
+		  	<div class="btn-group" role="group">
+		    	<button id="btnGroupDrop3" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+		      	<img src="{% static '/media/configuracion.png' %}" alt="img" style="margin: auto;width:50px" ><strong>  </strong>
+		    	</button>
+		    	<div class="dropdown-menu" aria-labelledby="btnGroupDrop2">
+		      		<a class="dropdown-item" href="{% url 'security:log_out' %}"><img src="{% static '/media/cerrarsesion.png' %}" alt="img" style="margin: auto;width:30px" >  Cerrar Sesión</a>
+		   		</div>
+		  	</div>
+		</div>
+
+		<div class="col-md-12" style="text-align:center">
+			<br>
+			<br>
+			<center>
+				<form class="form-inline col-md-12">
+					<div style="width:50px;" class="col-md-3">
+						<img class="card-img-top" src="{% static '/media/pacienteprin.png' %}" alt="Card image cap">
+						<div>
+							<p class="card-text" style="text-align:center"><strong>Pacientes:  {{paciente}}</strong></p>
+						</div>
+					</div>
+					<div class="col-md-1"></div>
+					<div style="width:50px;" class="col-md-3">
+						<img class="card-img-top" src="{% static '/media/medicoprin.png' %}" alt="Card image cap">
+						<div>
+							<p class="card-text" style="text-align:center"><strong>Empleados:  {{empleado}}</strong></p>
+						</div>
+					</div>
+					<div class="col-md-1"></div>
+					<div style="width:50px;" class="col-md-3">
+						<img class="card-img-top" src="{% static '/media/consultasprin.png' %}" alt="Card image cap">
+						<div>
+							<p class="card-text" style="text-align:center"><strong>Diagnosticos:  {{diagnostico}}</strong></p>
+						</div>
+					</div>
+					<div class="col-md-1"></div>
+				</form>
+			</center>
+			<br>
+			<p style="color:blue"><strong>Somos una red de Clínica y Centros médicos a nivel nacional, con la tecnología más moderna y el Staff médico más comprometido con la salud de nuestros pacientes y la de su familia.</strong></p>
+		</div>
+	</div>
+	
+	
+	
+
+	
+	
+{% endblock  %}

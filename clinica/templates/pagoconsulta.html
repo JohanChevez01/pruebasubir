@@ -1,0 +1,84 @@
+{% extends "base_in.html" %}
+
+{% block title %}
+	Pagos de Consultas 
+{% endblock %}
+
+{% load static %}
+
+{% block fondo %}
+	{% static 'media/fespecialidad.jpg' %}
+{% endblock %}
+
+{% block body %}
+    
+	<h1>Pagos a cobrar</h1>
+	<div class="row ">
+		
+		<div class="col-md-12" style="width:1130px;height:150px; margin:0 auto;border-radius:3px;position:static">
+			<img src="{% static '/media/logo.png' %}" alt="img" style="margin: auto;psoition:absolute ">
+			<br>
+		</div>
+		
+		<nav class="navbar navbar-dark bg-dark col-md-12">
+			<nav class="col-md-12" >
+  				<form class="form-inline">
+  					<div class="col-md-2">	
+  						<a href="{% url 'clinica:admin' %}" type="buttonCerrarSesion"style="position:static; display:inline-block; "><img src="{% static '/media/regresar.png' %}" alt="img" style="margin: auto;width:100%; align:right" ></a> 
+  					</div>
+  					<div class="col-md-9" >
+	    				<label style="color:white; font-size:20px">LISTA DE COBRO DE CONSULTA </label>
+  					</div>
+  					<div class="col-md-1" >
+	   					<a href="{% url 'security:log_out' %}" type="buttonCerrarSesion"style="position:absolute; float:right; display:inline-block"><img src="{% static '/media/cerrarsesion.png' %}" alt="img" style="margin: auto;width:40px; align:right" ></a>    					
+	    				
+  					</div>
+
+  				</form>
+			</nav>
+		</nav>
+
+		<table class="table table-striped " >
+			<thead class="table-dark">	
+				<tr>
+					<th>Identidad</th>
+					<th>Nombre Completo</th>
+					<th>Precio</th>
+					<th>Acciones</th>
+				</tr>
+			</thead>
+
+			<tbody id="filas_pacientes" style="background:#F2F3F5;">
+				{% for c in cobros %}
+					<tr>
+						{# <td>{{forloop.counter}}</td> #}
+						<td><strong>{{c.paciente.identidad}}</strong></td>
+						<td>{{c.paciente}}</td>
+						<td>{{c.precio}}</td>
+						<td>
+							<a class="btn btn-outline-primary"  href="{% url 'clinica:pago' c.id %}">
+								<img src="{% static '/media/nuevo.png' %}" alt="img" style="margin: auto;width:25px; align:right" ><strong>  Cobrar</strong>
+							</a>	    					
+						</td>
+
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>
+
+
+	
+	<script src="{% static 'js/jquery.min.js' %}"></script>
+	<script>
+		$(function(){
+				$('#txtBuscar').on('input', function(){
+					$.get('/clinica/paciente/buscar/', {valor: $(this).val().trim()}, function(data){
+						$('#filas_pacientes').html(data.listado);
+					}, 'json');
+				});
+		});
+	</script>
+
+
+{% endblock body %}

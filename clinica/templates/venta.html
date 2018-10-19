@@ -1,0 +1,105 @@
+{% extends "base_in.html" %}
+
+{% block title %}
+	Venta de Medicamento
+{% endblock %}
+
+{% load static %}
+
+{% block fondo %}
+	{% static 'media/fpaciente.jpg' %}
+{% endblock %}
+
+{% block body %}
+
+	<div class="row ">
+		
+		<div class="col-md-12" style="width:1130px;height:150px; margin:0 auto;border-radius:3px;position:static">
+			<img src="{% static '/media/logo.png' %}" alt="img" style="margin: auto;psoition:absolute ">
+			<br>
+		</div>
+		
+		<nav class="navbar navbar-dark bg-dark col-md-12">
+			<nav class="col-md-12" >
+  				<form class="form-inline">
+  					<div class="col-md-2">	
+  						<a href="{% url 'clinica:admin' %}" type="buttonCerrarSesion"style="position:static; display:inline-block; "><img src="{% static '/media/regresar.png' %}" alt="img" style="margin: auto;width:100%; align:right" ></a> 
+  					</div>
+  					<div class="col-md-8" >
+	    				<label style="color:white; font-size:20px">VENTA DE MEDICAMENTO </label>
+  					</div>
+  					<div class="col-md-2" >
+	    				<button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#exampleModal" >
+	    					<img src="{% static '/media/nuevo.png' %}" alt="img" style="margin: auto;width:25px; align:right" ><strong>  NUEVO</strong>
+	    				</button>
+	   					<a href="{% url 'security:log_out' %}" type="buttonCerrarSesion"style="position:absolute; float:right; display:inline-block"><img src="{% static '/media/cerrarsesion.png' %}" alt="img" style="margin: auto;width:40px; align:right" ></a>    					
+	    				
+  					</div>
+
+  				</form>
+			</nav>
+		</nav>
+
+		<table class="table table-striped " style="text-align:center">
+			<thead class="table-dark">
+				<center>
+					<tr>
+						<th>#</th>
+						<th>Fecha</th>
+						<th>Empleado</th>
+						<th>Paciente</th>
+						<th>Acciones</th>
+					</tr>
+				</center>	
+			</thead>
+
+			<tbody id="filas_pacientes" style="background:#F2F3F5;">
+				{% for v in venta %}
+					<tr>
+						<td>{{forloop.counter}}</td>
+						<td><strong>{{v.fecha}}</strong></td>
+						<td><strong>{{v.empleado.nombre}} {{v.empleado.apellido}}</strong></td>
+						<td><strong>{{v.paciente.nombre}} {{v.paciente.apellido}}</strong></td>
+						<td>
+						<div class="btn-group" role="group" style="color:orange">
+					    	<button  class="btn btn-outline-primary">
+	    						<a href="{% url 'clinica:detalle'  v.id %}">
+	    							<img src="{% static '/media/medicamentoicon.png' %}" alt="img" style="margin: auto;width:50px; align:right"><strong>  Medicamento</strong>
+	    						</a>
+	    					</button>
+					  	</div>
+					</td>
+
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>
+
+
+	<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	  <div class="modal-dialog" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h5 class="modal-title" id="exampleModalLabel"><img src="{% static '/media/nuevo.png' %}" alt="img" style="margin: auto;width:30px" > Nuevo Venta de Medicamento</h5>
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	          <span aria-hidden="true">&times;</span>
+	        </button>
+	      </div>
+	      <div class="modal-body">
+	        <form  action="{%  url 'clinica:nuevoventa' %}" method="post">
+	        	<div class="col-md-12">
+	        		
+					{% csrf_token %}
+					{{ form.as_p}}
+					<input type="submit" value="Guardar" class="btn btn-success">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+	        	</div>
+			</form>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+
+	
+{% endblock %}

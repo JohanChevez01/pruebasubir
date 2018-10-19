@@ -1,0 +1,57 @@
+{% extends "base_in.html" %}
+
+{% block title %}
+	Recibo
+{% endblock %}
+
+{% load static %}
+
+{% block fondo %}
+	{% static 'media/fespecialidad.jpg' %}
+{% endblock %}
+
+{% block body %}
+    
+	
+	<div class="col-md-2">	
+	  	<a href="{% url 'clinica:listacobro' %}" type="buttonCerrarSesion"style="position:static; display:inline-block; "><img src="{% static '/media/regresar.png' %}" alt="img" style="margin: auto;width:100%; align:right" ></a> 
+	</div>
+	<br>
+	<h1>Recibo</h1>
+	<table class="table" >
+		<thead class="thead-dark">	
+			<tr>
+				<th>Paciente</th>
+				<th></th>			
+			</tr>
+		</thead>
+		<tbody class="col-md-12" style="background:#ECF0F1 ">
+			<tr >
+				<td><strong>Fecha:  </strong>{{recibo.fecha}}</td>
+				<td><strong>Paciente: </strong>{{recibo.paciente}} </td>
+			</tr>					
+		</tbody>
+	</table>
+	
+	<table class="table table-striped " >
+		<thead class="thead-dark" >	
+			<tr>
+				<th>Descripcion</th>			
+				<th>Medico</th>			
+				<th>Subtotal</th>			
+			</tr>
+		</thead>
+		<tbody class="table table-striped " >
+			<tr>
+				<td>Pago de consulta medica</td>
+				<td>{{recibo.empleado}}</td>
+				<td>{{recibo.precio}}</td>
+			</tr>
+		</tbody>
+	</table>
+
+	
+	<h3 style="text-align:right"><strong>Total           : $ {{recibo.precio}}</strong></h3>
+	
+
+{% endblock body %}

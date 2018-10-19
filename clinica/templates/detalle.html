@@ -1,0 +1,123 @@
+{% extends "base_in.html" %}
+
+{% block title %}
+	Detalle de Venta
+{% endblock %}
+
+{% load static %}
+
+{% block fondo %}
+	{% static 'media/fhistorial.jpg' %}
+{% endblock %}
+
+{% block body %}
+
+	<div class="row ">
+		
+		<div class="col-md-12" style="width:1130px;height:150px; margin:0 auto;border-radius:3px;position:static">
+			<img src="{% static '/media/logo.png' %}" alt="img" style="margin: auto;psoition:absolute ">
+			<br>
+		</div>
+		
+		<nav class="navbar navbar-dark bg-dark col-md-12">
+			<nav class="col-md-12" >
+  				<form class="form-inline">
+  					<div class="col-md-2">	
+  						<a href="{% url 'clinica:admin' %}" type="buttonCerrarSesion"style="position:static; display:inline-block; "><img src="{% static '/media/regresar.png' %}" alt="img" style="margin: auto;width:100%; align:right" ></a> 
+  					</div>
+  					<div class="col-md-8" >
+	    				<label style="color:white; font-size:20px">Venta de Medicamento </label>
+  					</div>
+  					<div class="col-md-2" >
+	    				<button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#exampleModal" >
+	    					<img src="{% static '/media/nuevo.png' %}" alt="img" style="margin: auto;width:25px; align:right" ><strong>  NUEVO</strong>
+	    				</button>
+	   					<a href="{% url 'security:log_out' %}" type="buttonCerrarSesion"style="position:absolute; float:right; display:inline-block"><img src="{% static '/media/cerrarsesion.png' %}" alt="img" style="margin: auto;width:40px; align:right" ></a>    					
+	    				
+  					</div>
+  				</form>
+			</nav>
+		</nav>
+
+		<table class="table" >
+		<thead class="thead-dark">	
+			<tr>
+				<th>Paciente</th>
+				<th></th>			
+			</tr>
+		</thead>
+		<tbody class="col-md-12" style="background:#ECF0F1 ">
+			<tr >
+				<td><strong>Nombre Completo:  </strong>{{venta.paciente.nombre}} {{venta.paciente.apellido}} </td>
+				<td><strong>Cajero:  </strong>{{venta.empleado.nombre}} {{venta.empleado.apellido}} </td>
+			</tr>					
+		</tbody>
+	</table>
+	
+	<table class="table table-striped " >
+		<thead class="thead-dark" >	
+			<center>
+				<tr>
+					<th>Medicamento</th>			
+					<th>Precio</th>			
+					<th>Cantidad</th>			
+					<th>Subtotal</th>
+					<th></th>			
+				</tr>
+			</center>
+				
+		</thead>
+		<tbody class="table table-striped " >
+			{% for de in detalle  %}
+				<tr>
+					<td>{{de.medicamento}}</td>
+					<td>L. {{de.medicamento.precio}}</td>
+					<td>{{de.cantidad}}</td>
+					<td>L. {{de.subtotal}}</td>
+					<td>{% for pre in giad.prescripcion_set.all  %}
+						<ul>
+								{{pre.medicamento}}
+						</ul>
+					{% endfor %}</td>
+				</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+	<div class="col-md-12">
+		<h3 style="text-align:right"><strong>Subtotal Total  : L. {{subtotalt}}</strong></h3>
+		<h3 style="text-align:right"><strong>ISV (15%)       : L.      {{isv}}</strong></h3>
+		<h3 style="text-align:right"><strong>Total           : L. {{total}}</strong></h3>
+	</div>
+
+	</div>
+
+	<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	  <div class="modal-dialog" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h5 class="modal-title" id="exampleModalLabel"><img src="{% static '/media/nuevo.png' %}" alt="img" style="margin: auto;width:30px" > Nuevo Medicamento a Facturar</h5>
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	          <span aria-hidden="true">&times;</span>
+	        </button>
+	      </div>
+	      <div class="modal-body">
+	        <form id="frmDetalle" action="{%  url 'clinica:nuevodetalle' venta.id %}" method="post">
+	        	<div class="col-md-12">
+	        		
+					{% csrf_token %}
+					{{ form.as_p}}
+					<input type="submit" value="Guardar" class="btn btn-success" >
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+	        	</div>
+			</form>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+
+	<script>
+
+	</script>
+
+	
+{% endblock %}

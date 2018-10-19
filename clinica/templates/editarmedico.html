@@ -1,0 +1,21 @@
+{% extends "base_in.html" %}
+
+{% block title %}
+	Modificación de Medico
+{% endblock %}
+
+{% load static %}
+
+{% block body %}
+
+	<div class="row">		
+		<div class="col-md-4" id="form">
+			<form  method="post" >
+					{% csrf_token %}
+					{{ form.as_p}}
+					<input type="submit" value="Save" class="btn btn-success">
+			</form>
+		</div>
+	</div>
+	
+{% endblock  %}

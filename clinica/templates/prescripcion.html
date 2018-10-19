@@ -1,0 +1,43 @@
+{% extends "base_in.html" %}
+
+{% block title %}
+	Prescripción Medica
+
+{% endblock %}
+
+{% load static %}
+
+{% block fondo %}
+	{% static 'media/fprescripcion.jpg' %}
+{% endblock %}
+
+{% block body %}
+
+	<div class="row ">
+		
+		<div class="col-md-12" style="width:1130px;height:150px; margin:0 auto;border-radius:3px;position:static">
+			<img src="{% static '/media/logo.png' %}" alt="img" style="margin: auto;psoition:absolute ">
+			<br>
+		</div>
+		
+		<nav class="navbar navbar-dark bg-dark col-md-12">
+			<nav class="col-md-12" >
+  				<form class="form-inline">
+  					<div class="col-md-2">	
+  						<a href="{% url 'clinica:diagnostico' %}" type="buttonCerrarSesion"style="position:static; display:inline-block; "><img src="{% static '/media/regresar.png' %}" alt="img" style="margin: auto;width:100%; align:right" ></a> 
+  					</div>
+  				</form>
+			</nav>
+		</nav>
+
+		<form  method="post" action="{% url 'clinica:addprescripcion' %}">
+					{% csrf_token %}
+					<br>
+					{{form.as_p}}
+					<br>
+					<input type="submit" value="Save" class="btn btn-success">
+		</form>
+
+
+	
+{% endblock %}

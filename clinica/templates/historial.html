@@ -1,0 +1,71 @@
+{% extends "base_in.html" %}
+
+{% block title %}
+	Historial Medico 
+{% endblock %}
+
+{% load static %}
+
+{% block fondo %}
+	{% static 'media/fespecialidad.jpg' %}
+{% endblock %}
+
+{% block body %}
+    
+	<h1>DATOS DEL PACIENTE</h1>
+	<div class="col-md-2">	
+	  	<a href="{% url 'clinica:admin' %}" type="buttonCerrarSesion"style="position:static; display:inline-block; "><img src="{% static '/media/regresar.png' %}" alt="img" style="margin: auto;width:100%; align:right" ></a> 
+	</div>
+	<br>
+	<table class="table" >
+		<thead class="thead-dark">	
+			<tr>
+				<th>Paciente</th>
+				<th></th>			
+			</tr>
+		</thead>
+		<tbody class="col-md-12" style="background:#ECF0F1 ">
+			<tr >
+				<td><strong>Nombre Completo:  </strong>{{paciente.nombre}} {{paciente.apellido}} </td>
+				<td><strong>Dirección: </strong>{{paciente.direccion}} </td>
+			</tr>
+			<tr>
+				
+				<td><strong>Números Telefonicos: </strong>{{paciente.celular}} <strong>/</strong> {{paciente.telcasa}} </td>
+				<td><strong>Email: </strong>{{paciente.correo}} </td>
+			</tr>
+					
+		</tbody>
+	</table>
+	<table class="table">
+		<thead class="thead-dark">	
+			<tr>
+				<th style="text-align:center">DIAGNOSTICO</th>		
+			</tr>
+		</thead>
+	</table>
+
+	<table class="table table-striped " >
+		<thead class="thead-dark" >	
+			<tr>
+				<th>Descripcion</th>			
+				<th>Medico</th>			
+				<th>Tratamiento</th>			
+			</tr>
+		</thead>
+		<tbody class="table table-striped " >
+			{% for giad in diagnostico  %}
+				<tr>
+					<td>{{giad}}</td>
+					<td>{{giad.empleado.nombre}} {{giad.empleado.apellido}}</td>
+					<td>{% for pre in giad.prescripcion_set.all  %}
+						<ul>
+								{{pre.medicamento}}
+						</ul>
+					{% endfor %}</td>
+				</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+
+{% endblock body %}

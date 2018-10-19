@@ -1,0 +1,66 @@
+{% extends "base_in.html" %}
+
+{% block title %}
+	Bienvenido Cajero
+{% endblock %}
+
+{% load static %}
+
+{% block fondo %}
+	{% static 'media/imagen3.jpg' %}
+{% endblock fondo %}
+
+{% block body %}
+	
+	<div class="row">
+		<div class="col-md-12" style="margin: auto; display:block; ">
+			<img src="{% static '/media/logo.png' %}" alt="img" style="margin: auto; display:block; ">
+			<hr>
+		</div>
+
+
+		<div class="btn-group">
+
+			<button type="button" class="btn btn-secondary">
+				<a href="{% url 'clinica:admin' %}">
+					<img src="{% static '/media/home.png' %}" alt="img" style="margin: auto;width:45px" >
+				</a>
+			</button>
+			<button type="button" class="btn btn-secondary" >
+				<a href="{% url 'clinica:paciente' %}">
+					<img src="{% static '/media/paciente.png' %}" alt="img" style="margin: auto;width:45px" >
+				</a><a href="{% url 'clinica:paciente' %}" style="color:white"><strong>  PACIENTE</strong></a>
+			</button>
+			<button type="button" class="btn btn-secondary">
+				<a href="{% url 'clinica:diagnostico' %}">
+					<img src="{% static '/media/consultamedica.png' %}" alt="img" style="margin: auto;width:40px" >
+				</a><a href="{% url 'clinica:diagnostico' %}" style="color:white"><strong>  CONSULTAS MEDICAS</strong></a>
+			</button>
+		  	<div class="btn-group" role="group">
+		    	<button id="btnGroupDrop2" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+		      	<img src="{% static '/media/pagos.png' %}" alt="img" style="margin: auto;width:50px" ><strong>  PAGOS</strong>
+		    	</button>
+		    	<div class="dropdown-menu" aria-labelledby="btnGroupDrop2">
+		      		<a class="dropdown-item" href="{% url 'clinica:listacobro' %}">Consulta</a>
+		        	<a class="dropdown-item" href="{% url 'clinica:venta' %}">Medicamento</a>
+		   		</div>
+		  	</div>
+
+		  	<div class="btn-group" role="group">
+		    	<button id="btnGroupDrop3" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+		      	<img src="{% static '/media/configuracion.png' %}" alt="img" style="margin: auto;width:50px" ><strong>  </strong>
+		    	</button>
+		    	<div class="dropdown-menu" aria-labelledby="btnGroupDrop2">
+		      		<a class="dropdown-item" href="{% url 'security:log_out' %}"><img src="{% static '/media/cerrarsesion.png' %}" alt="img" style="margin: auto;width:30px" >  Cerrar Sesión</a>
+		   		</div>
+		  	</div>
+		  	<br>
+		</div>
+	</div>
+	
+	
+	
+
+	
+	
+{% endblock  %}
